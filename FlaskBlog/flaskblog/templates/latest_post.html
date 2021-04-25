@@ -1,0 +1,39 @@
+<!-- 
+    latest_post.html
+    Inherits the properties from the template -- layout_wo_side.html
+    This is template to render all the latest blog with latest kept first
+    this don't have sidebar as all other layout inherited pages do have.
+-->
+
+
+
+{% extends "layout_wo_side.html" %}
+
+{% block content %} 
+    
+    <!-- printing the posts untill the posts extinct out -->
+
+    {% for post in posts %}
+        <article class="media content-section">
+
+            <!-- profile img of the user who posted -->
+
+            <img class = "rounded-circle article-img" src="{{ url_for('static', filename = 'profile_pics/' + post.author.image_file)}}" >
+            
+            <div class="media-body">
+                
+                <!-- Date the post was posted -->
+
+                <div class="article-metadata">
+                    <small class="text-muted">{{ post.date_posted.strftime("%Y-%m-%d") }}</small>
+                </div>
+                
+                <!-- Title and content of the posts -->
+                
+                <h2 class="article-title">{{ post.title }}</h2>
+                <p class="article-content">{{ post.content }}</p>
+            
+            </div>
+        </article>
+    {% endfor %}
+{% endblock %}

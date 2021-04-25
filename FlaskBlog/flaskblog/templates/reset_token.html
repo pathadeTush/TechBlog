@@ -1,46 +1,62 @@
-{% extends "layout.html" %} {% block content %}
+<!-- 
+    reset_token.html
+    Inherits the properties from the template -- layout.html
+    This is template for the users who want to reset their passwords and
+    this template is render right after the reset_request template
+    here they are asked for the new password and then confirmation for the same
+-->
+
+
+
+{% extends "layout.html" %} 
+{% block content %}
 <div class="content-section" style="background-color: rgb(182, 238, 233)">
-  <!-- <div
-    style="border: 2 em rgb(171, 211, 131); background-color: rgb(82, 245, 82)"
-  >
-    {% for msg in get_flashed_messages() %}
-    <span> {{ msg }} </span>
-    {% endfor %}
-  </div> -->
-  <form method="POST" action="">
-    {{ form.hidden_tag() }}
-    <fieldset class="form-group">
-      <legend class="border-bottom mb-4">Reset Password</legend>
-      <div class="form-group">
-        {{ form.passowrd.label(class="form-control-label") }} {% if
-        form.passowrd.errors %} {{ form.passowrd(class="form-control
-        form-control-lg is-invalid") }}
-        <div class="invalid-feedback">
-          {% for error in form.passowrd.errors %}
-          <span>{{ error }}</span>
-          {% endfor %}
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            
+            <!-- legend to reset password -->
+            <legend class="border-bottom mb-4">Reset Password</legend>
+            <div class="form-group">
+                {{ form.passowrd.label(class="form-control-label") }} 
+                
+                <!-- if password has errors print them -->
+                {% if form.passowrd.errors %} 
+                    {{ form.passowrd(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.passowrd.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+                <!-- else validate -->
+                {% else %} 
+                    {{ form.passowrd(class="form-control form-control-lg") }} 
+                {% endif %}
+            </div>
+
+            <!-- Same confirmation for the confirm-password field -->
+            <div class="form-group">
+                {{ form.confirm_password.label(class="form-control-label") }} 
+                {% if form.confirm_password.errors %} 
+                    {{form.confirm_password(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.confirm_password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %} 
+                    {{ form.confirm_password(class="form-control form-control-lg") }} 
+                {% endif %}
+            </div>
+
+        </fieldset>
+
+        <!-- Submit btn -->
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
         </div>
-        {% else %} {{ form.passowrd(class="form-control form-control-lg") }} {%
-        endif %}
-      </div>
-      <div class="form-group">
-        {{ form.confirm_password.label(class="form-control-label") }} {% if
-        form.confirm_password.errors %} {{
-        form.confirm_password(class="form-control form-control-lg is-invalid")
-        }}
-        <div class="invalid-feedback">
-          {% for error in form.confirm_password.errors %}
-          <span>{{ error }}</span>
-          {% endfor %}
-        </div>
-        {% else %} {{ form.confirm_password(class="form-control
-        form-control-lg") }} {% endif %}
-      </div>
-    </fieldset>
-    <div class="form-group">
-      {{ form.submit(class="btn btn-outline-info") }}
-    </div>
-  </form>
+    </form>
 </div>
 
 {% endblock content %}
