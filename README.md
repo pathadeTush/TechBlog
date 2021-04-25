@@ -22,8 +22,12 @@
   - Syntax: `cd FlaskBlog` `python3 run.py`
 - **To stop the program Press** </br>
 
+<<<<<<< HEAD
   - For windows and linux - Syntax: `ctrl + c`
   - For mac - Syntax: `cmd + c`
+=======
+  - `ctrl+c (for windows and linux) ` `cmd + c (for mac)`
+>>>>>>> 810d46aebf2c8605353f62334d43657f843f0e41
 
 - **Deactivate the virtual environment**
   - Syntax: `deactivate`
