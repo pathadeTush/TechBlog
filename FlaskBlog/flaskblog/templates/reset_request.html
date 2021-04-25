@@ -1,33 +1,45 @@
-{% extends "layout.html" %} {% block content %}
+<!-- 
+    reset_request.html
+    Inherits the properties from the template -- layout.html
+    This is template for the users who want to reset their passwords and
+    this page contains a simple form to read the email_id and then send
+    an email to that 
+-->
+
+{% extends "layout.html" %} 
+{% block content %}
 <div class="content-section" style="background-color: rgb(182, 238, 233)">
-  <!-- <div
-    style="border: 2 em rgb(171, 211, 131); background-color: rgb(82, 245, 82)"
-  >
-    {% for msg in get_flashed_messages() %}
-    <span> {{ msg }} </span>
-    {% endfor %}
-  </div> -->
-  <form method="POST" action="">
-    {{ form.hidden_tag() }}
-    <fieldset class="form-group">
-      <legend class="border-bottom mb-4">Reset Password</legend>
-      <div class="form-group">
-        {{ form.email.label(class="form-control-label") }} {% if
-        form.email.errors %} {{ form.email(class="form-control form-control-lg
-        is-invalid") }}
-        <div class="invalid-feedback">
-          {% for error in form.email.errors %}
-          <span>{{ error }}</span>
-          {% endfor %}
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+
+            <!-- legend for reset password -->
+            <legend class="border-bottom mb-4">Reset Password</legend>
+            <div class="form-group">
+                {{ form.email.label(class="form-control-label") }} 
+                
+                <!-- if errors print those  -->
+                {% if form.email.errors %} 
+                    {{ form.email(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+                <!-- else validate -->
+                {% else %} 
+                    {{ form.email(class="form-control form-control-lg") }} 
+                {% endif %}
+            </div>
+        </fieldset>
+        
+        <!-- Submit button -->
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
         </div>
-        {% else %} {{ form.email(class="form-control form-control-lg") }} {%
-        endif %}
-      </div>
-    </fieldset>
-    <div class="form-group">
-      {{ form.submit(class="btn btn-outline-info") }}
-    </div>
-  </form>
+    
+    </form>
 </div>
 
 {% endblock content %}

@@ -1,79 +1,69 @@
-{% extends "layout.html" %} {% block content %}
-<article
-  class="media content-section mt-4 ml-0 mr-0"
-  style="background-color: rgb(255, 255, 255)"
->
-  <img
-    src="{{ url_for('static', filename='profile_pics/'+post.author.image_file) }}"
-    alt="profile-image"
-    class="rounded-circle article-img"
-  />
-  <div class="media-body">
-    <div class="article-metadata">
-      <a
-        class="mr-2"
-        href=" {{url_for('users.user_posts', username = post.author.username)}} "
-        >{{ post.author.username }}</a
-      >
-      <small class="text-muted">
-        {{ post.date_posted.strftime('%Y-%m-%d') }}</small
-      >
-      {% if post.author == current_user %}
-      <div>
-        <a
-          class="btn btn-secondary btn-sm mt-1 mb-1"
-          href="{{url_for('posts.update_post', post_id = post.id)}}"
-          >Update</a
-        >
-        <button
-          type="button"
-          class="btn btn-danger btn-sm m-1"
-          data-toggle="modal"
-          data-target="#deleteModal"
-        >
-          Delete
-        </button>
-      </div>
-      {% endif%}
+<!-- 
+    post.html
+    Inherits the properties from the template -- layout.html
+    This is template to render the posts of the users 
+    in the format as title followed by content with date on which the content was 
+    posted to the site.
+-->
+
+
+{% extends "layout.html" %} 
+{% block content %}
+    <article class="media content-section mt-4 ml-0 mr-0" style="background-color: rgb(255, 255, 255)">
+        
+        <!-- profile img of the user -->
+        
+        <img src="{{ url_for('static', filename='profile_pics/'+post.author.image_file) }}" alt="profile-image" class="rounded-circle article-img" />
+        
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href=" {{url_for('users.user_posts', username = post.author.username)}} ">{{ post.author.username }}</a>
+                <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                
+                <!-- giving previledges to modify the post if the user is the author -->
+                
+                {% if post.author == current_user %}
+                    <div>
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{url_for('posts.update_post', post_id = post.id)}}">Update</a>
+                        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal"> Delete </button>
+                    </div>
+                {% endif%}
+
+            </div>
+
+            <!-- title of the post followed by the contents -->
+            <h2 class="article-title">{{ post.title }}</h2>
+            <p class="article-content">{{ post.content }}</p>
+        </div>
+    </article>
+    
+    <!-- Modal to confirm the deletion of the post-->
+    
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <!-- Header -->
+
+                <div class="modal-header">
+                    <!-- legenf to ask for confirmation -->
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
+                    
+                    <button type="button" class="close" data-dismiss="modal"aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <!-- Footer -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close </button>
+                    <form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method="POST">
+                        <input class="btn btn-danger" type="submit" value="Delete" />
+                    </form>
+                </div>
+
+            </div>
+        </div>
     </div>
-    <h2 class="article-title">{{ post.title }}</h2>
-    <p class="article-content">{{ post.content }}</p>
-  </div>
-</article>
-<!-- Modal -->
-<div
-  class="modal fade"
-  id="deleteModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="deleteModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          Close
-        </button>
-        <form
-          action="{{ url_for('posts.delete_post', post_id=post.id) }}"
-          method="POST"
-        >
-          <input class="btn btn-danger" type="submit" value="Delete" />
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 {% endblock content %}

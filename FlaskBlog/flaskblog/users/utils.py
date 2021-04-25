@@ -1,3 +1,4 @@
+# All imports
 import os
 import secrets
 from PIL import Image
@@ -5,6 +6,9 @@ from flask import url_for, current_app
 from flask_mail import Message
 from flaskblog import mail
 
+
+
+# Function to save the new profile_picture of the user
 
 def save_picture(form_picture):
     # creating secret key for name of picture filename. we are saving a secret key for picture file instead of saving the name of file directly
@@ -25,14 +29,14 @@ def save_picture(form_picture):
 
     return picture_fn
 
-
+# Function to send an email 
 def send_reset_email(user):
     token = user.get_reset_token()
-    msg = Message('Password Reset Request',
-                  sender='noreply@demo.com',
-                  recipients=[user.email])
-    msg.body = f'''To reset your password, visit the following link:
-{url_for('users.reset_token', token=token, _external=True)}
-If you did not make this request then simply ignore this email and no changes will be made.
-'''
+
+    msg = Message('Password Reset Request', sender='noreply@demo.com', recipients=[user.email])
+    msg.body = f'''
+        To reset your password, 
+        visit the following link: {url_for('users.reset_token', token=token, _external=True)}
+        If you did not make this request then simply ignore this email and no changes will be made.
+    '''
     mail.send(msg)
