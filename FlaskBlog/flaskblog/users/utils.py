@@ -40,3 +40,5 @@ def send_reset_email(user):
         If you did not make this request then simply ignore this email and no changes will be made.
     '''
     mail.send(msg)
+
+#_external=True tells Flask that it should generate an absolute URL, and not a relative URL. For example, https://example.com/my-page is an absolute URL, but /my-page is a relative URL. Since you're sending an email, a relative URL to a page in your site won't work.

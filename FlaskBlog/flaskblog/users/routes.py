@@ -18,6 +18,8 @@ users = Blueprint('users', __name__)
 def register():
     # is_authenticated
     # This property should return True if the user is authenticated, i.e. they have provided valid credentials. (Only authenticated users will fulfill the criteria of login_required.)
+
+    #if user is login already then it can't register. So redirect it back to home
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     # creating instance of RegistrationForm class
@@ -96,6 +98,8 @@ def account():
         db.session.commit()
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.account'))
+
+    # first time when user come to account route that time request is GET. So set the form data to the user data. So that it will be displayed to the user(as previous data) instead of blank data.
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
@@ -108,8 +112,11 @@ def account():
 @users.route('/user/<string:username>', methods=['GET', 'POST'])
 def user_posts(username):
     page = request.args.get('page', 1, type=int)
+
+    # getting the user object who is the author of post to which current user is trying to access
     user = User.query.filter_by(username=username).first_or_404()
 
+# arranging the all posts of that author according to the posted time of each post.
     posts = Post.query.filter_by(author=user).order_by(
         Post.date_posted.desc()).paginate(page=page, per_page=4)
     return render_template('user_posts.html', posts=posts, user=user)

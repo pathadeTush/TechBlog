@@ -6,40 +6,36 @@
     an email to that 
 -->
 
-{% extends "layout.html" %} 
-{% block content %}
+{% extends "layout.html" %} {% block content %}
 <div class="content-section" style="background-color: rgb(182, 238, 233)">
-    <form method="POST" action="">
-        {{ form.hidden_tag() }}
-        <fieldset class="form-group">
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group">
+      <!-- legend for reset password -->
+      <legend class="border-bottom mb-4">Reset Password</legend>
+      <div class="form-group">
+        {{ form.email.label(class="form-control-label") }}
 
-            <!-- legend for reset password -->
-            <legend class="border-bottom mb-4">Reset Password</legend>
-            <div class="form-group">
-                {{ form.email.label(class="form-control-label") }} 
-                
-                <!-- if errors print those  -->
-                {% if form.email.errors %} 
-                    {{ form.email(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.email.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-
-                <!-- else validate -->
-                {% else %} 
-                    {{ form.email(class="form-control form-control-lg") }} 
-                {% endif %}
-            </div>
-        </fieldset>
-        
-        <!-- Submit button -->
-        <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
+        <!-- if errors print those  -->
+        {% if form.email.errors %} {{ form.email(class="form-control
+        form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.email.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
         </div>
-    
-    </form>
+
+        <!-- else validate -->
+        {% else %} {{ form.email(class="form-control form-control-lg") }} {%
+        endif %}
+      </div>
+    </fieldset>
+
+    <!-- Submit button -->
+    <div class="form-group">
+      {{ form.submit(class="btn btn-outline-info") }}
+    </div>
+  </form>
 </div>
 
 {% endblock content %}
