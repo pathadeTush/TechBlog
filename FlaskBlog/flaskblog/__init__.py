@@ -8,8 +8,6 @@ from flask_mail import Mail
 from flaskblog.config import Config
 
 
-
-
 # SQLAlchemy is a library that facilitates the communication between Python programs and databases. Most of the times, this library is used as an Object Relational Mapper (ORM) tool that translates Python classes to tables on relational databases and automatically converts function calls to SQL statements.
 db = SQLAlchemy()
 
@@ -28,8 +26,10 @@ login_manager.login_message_category = 'info'
 
 mail = Mail()
 
+
 def create_app(config_class=Config):
     app = Flask(__name__)
+    # adding data members defined in config.py file
     app.config.from_object(Config)
 
     # importing users, posts, errors, main blueprints
@@ -38,18 +38,17 @@ def create_app(config_class=Config):
     from flaskblog.posts.routes import posts
     from flaskblog.main.routes import main
     from flaskblog.errors.handlers import errors
-    
+
     # making blueprints registered and intact
     app.register_blueprint(users)
     app.register_blueprint(posts)
     app.register_blueprint(main)
     app.register_blueprint(errors)
 
-    # initializing the export variables 
+    # initializing the export variables
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
 
     return app
-

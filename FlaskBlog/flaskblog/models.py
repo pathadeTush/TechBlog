@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
     # primary key is used because it is needed for SQLAlchemy to convert / map python classes (here User and Post) to the table and to access a specific object, every object needs there to be at least one column denoted as a primary key column. We can access any object using this column. Here this column is 'id'.
     id = db.Column(db.Integer, primary_key=True)
 
-    # nullable=Flase implies this field can't be empty
+    # nullable=False implies this field can't be empty
     username = db.Column(db.String(20), unique=True, nullable=False)
 
     email = db.Column(db.String(120), unique=True, nullable=False)

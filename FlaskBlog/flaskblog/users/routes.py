@@ -19,7 +19,7 @@ def register():
     # is_authenticated
     # This property should return True if the user is authenticated, i.e. they have provided valid credentials. (Only authenticated users will fulfill the criteria of login_required.)
 
-    #if user is login already then it can't register. So redirect it back to home
+    # if user is login already then it can't register. So redirect it back to home
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     # creating instance of RegistrationForm class
@@ -156,3 +156,24 @@ def reset_token(token):
         flash('Your Password has been updated! You are now able to log in', 'success')
         return redirect(url_for('users.login'))
     return render_template('reset_token.html', title='Reset-token', form=form)
+
+
+# delete account
+@login_required
+@users.route("/delete_account", methods=['GET', 'POST'])
+def delete_account():
+    user = current_user._get_current_object()
+    posts = Post.query.filter_by(author=user).all()
+
+    for post in posts:
+        db.session.delete(post)
+        db.session.commit()
+
+    if user.image_file != "default.png":
+        user_profile = os.path.join(current_app.root_path, 'static/profile_pics/', user.image_file)
+        os.remove(user_profile)
+
+    db.session.delete(user)
+    db.session.commit()
+
+    return redirect(url_for('main.home'))
