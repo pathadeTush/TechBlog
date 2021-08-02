@@ -1,5 +1,5 @@
 from flask import render_template, request, Blueprint
-from flaskblog.models import Post
+from techblog.models import Post
 
 # main is the name of package.
 main = Blueprint('main', __name__)

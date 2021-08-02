@@ -5,7 +5,7 @@ from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
-from flaskblog.models import User
+from techblog.models import User
 
 # RegistrationForm class represents the registration form structure.
 # Using FlaskForm we can write form easily in python using OOP.
