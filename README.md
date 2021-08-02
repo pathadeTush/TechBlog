@@ -1,4 +1,4 @@
-# BlogSite
+# TechBlog
 
 ### This repo has Web Based Project implemented in python using flask and other languages like html, css and bootstrap.
 
