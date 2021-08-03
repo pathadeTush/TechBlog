@@ -1,0 +1,117 @@
+run.py:
+	# create_app() is a function defined in __init__.py file. which create app object and return it. 
+	app = create_app()
+
+-------------------------------------------------------------------
+
+config.py:
+	It has class named 'Config' which has some important data members defined.
+
+-------------------------------------------------------------------
+
+__init__.py:
+
+	It has following initialization for following object
+
+	db = SQLAlchemy()
+	bcrypt = Bcrypt()
+	login_manager = LoginManager()
+	mail = Mail()
+	app = Flask(__name__)
+
+	here, users, posts, main, errors bluprints has been registered to app.
+
+--------------------------------------------------------------------
+
+models.py:
+
+	def load_user(user_id):
+
+	User class and Post class --> Two tables in database
+
+--------------------------------------------------------------------
+
+main package:
+
+	routes.py
+		/home route				 			--> render to home.html
+		/about route							--> render to about.html
+		/latest_post route						--> render to latest_post.html
+		/calendar route						--> render to calendar.html
+		/announcements route					--> render to announcements.html
+
+-------------------------------------------------------------------
+
+users package:
+
+	forms.py
+		class RegistrationForm(FlaskForm):
+		class LoginForm(FlaskForm):
+		class UpdateAccountForm(FlaskForm):
+		class RequestResetForm(FlaskForm):
+		class ResetPasswordForm(FlaskForm):
+
+	routes.py
+		/register route  						--> render to register.html
+		/login route							--> render to login.html
+		/logout route							--> render to main.html
+		/account route						--> render to account.html
+		/user/<string:username> route			--> render to user_posts.html
+		/reset_password route					--> render to reset_request.html
+		/reset_password/<token> route			--> render to reset_request.html
+		/delete_account/<int:user_id> route		--> render to home.html
+
+	utils.py
+		def save_picture(form_picture):
+		def send_reset_email(user):
+
+
+-------------------------------------------------------------------
+
+posts package
+
+	forms.py
+		class PostForm(FlaskForm):
+
+	routes.py
+		/post/new route						--> render to create_post.html
+		/post/<int:post_id>    					--> render to post.html
+		/post/<int:post_id>/update				--> render to create_post.html  and posts.html
+		/post/<int:post_id>/delete				--> render to home.html
+
+
+-------------------------------------------------------------------
+
+errors package
+
+	handlers.py
+		error_404
+		error_403
+		error_500
+
+
+-------------------------------------------------------------------
+
+static directory
+
+	profile_pics directory
+		main.css
+		app.css
+		app.js
+
+
+--------------------------------------------------------------------
+
+templates directory
+	errors directory
+	all .html file
+
+-------------------------------------------------------------------
+
+for function involving forms 
+
+	first request is GET that time form.validate_on_submit() is false.
+	When user press submit after filling form that time request is POST.
+	that time form.validate_on_submit() becomes true if form details are valid.
+
+ 

@@ -1,0 +1,36 @@
+<!-- 
+    about.html
+    Template to render the about section of the blog.
+    This contain a minimal contact details and other minor details of project 
+ -->
+
+
+{% extends "layout_wo_side.html" %} {% block content %}
+    <div class="container ">
+        <h3 class="card ">Contact Us</h3>
+        <p class="container">We are passionate team of developers, always ready to revolutionize the world.
+            <hr>
+            You can contact us at 
+        </p>
+            <ul class="card ">
+                <li><a href="https://github.com/pathadeTush">Tushar</a></li>
+                <ul class="container ">
+                    <p class="container " >
+                        Phone Number : +91 XXXXX 12345
+                    </p>
+                </ul>
+                <li><a href="https://github.com/vrathod07">Vaishnavi</a></li>
+                <ul class="container ">
+                    <p class="container " >
+                        Phone Number : +91 XXXXX 23456
+                    </p>
+                </ul>
+                <li><a href="https://github.com/TanmayPatil23">Tanmay </a></li>
+                <ul class="container ">
+                    <p class="container " >
+                        Phone Number : +91 XXXXX 34567
+                    </p>
+                </ul>
+            </ul>
+    </div>
+{% endblock content %}

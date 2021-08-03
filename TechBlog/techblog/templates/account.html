@@ -1,0 +1,107 @@
+<!-- 
+    account.html
+    Inherits the properties from the template -- layout.html
+    This is template to render the utility to change the username, email and profile pic
+    for the user as and when required.
+-->
+{% extends "layout.html" %}
+<!-- Actual contents -->
+{% block content %}
+<div class="content-section" style="background-color: rgb(182, 238, 233)">
+    <!-- For the media contents of the account -->
+    <div class="media">
+        <!-- image source is directly taken from the route -->
+        <img src="{{ image_file }}" alt="userimage" class="rounded-circle account-img" />
+
+        <div class="media-body">
+            <h2 class="account-heading">{{current_user.username}}</h2> <!-- username-->
+            <p class="text-secondary">{{current_user.email}}</p> <!-- email -->
+        </div>
+
+    </div>
+    <form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        <fieldset class="form-group">
+
+            <legend class="border-bottom mb-4">Account Info</legend>
+
+            <div class="form-group">
+                {{ form.username.label(class="form-control-label") }}
+                <!-- if username is invalid or contains error alert user -->
+                {% if form.username.errors %}
+                {{ form.username(class="form-control form-control-lg is-invalid") }}
+
+                <!-- printing errors -->
+                <div class="invalid-feedback">
+                    {% for error in form.username.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                {% else %}
+                <!-- else save changes -->
+                {{ form.username(class="form-control form-control-lg") }}
+                {%endif %}
+
+            </div>
+            <!-- Same as above, just here for email validation -->
+            <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {% if form.email.errors %}
+                {{ form.email(class="form-control form-control-lg is-invalid") }}
+
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                {% else %}
+                {{ form.email(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- upload pic -->
+            <div class="form-group">
+                {{ form.picture.label() }}
+                {{ form.picture(class="form-control-file") }}
+                <!--form-control-file is a bootstrap class for taking file as a input-->
+                <!-- if caught errors -->
+                {% if form.picture.errors %}
+                <!-- printing them -->
+                {% for error in form.picture.errors %}
+                <span class="text-danger">{{ error }}</span></br>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+        </fieldset>
+
+        <div class="form-group">
+            <!-- a button to submit or save changes -->
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+
+    </form>
+
+</div>
+
+<button class="delete-account-btn">delete account</button>
+
+
+<script>
+    const delete_btn = document.querySelector('.delete-account-btn')
+    delete_btn.addEventListener('click', deletePost)
+
+    function deletePost() {
+        var confirm = window.confirm("Are you sure you want to delete your account?\nYour account and all posts will be deleted permanently!");
+        if (confirm) {
+            window.alert("Your account has been successfully deleted.");
+
+            window.location.href = "{{url_for('users.delete_account')}}";
+
+        }
+    }
+</script>
+{% endblock content %}

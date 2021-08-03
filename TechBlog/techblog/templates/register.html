@@ -1,0 +1,92 @@
+<!-- 
+    register.html
+    Inherits the properties from the template -- layout.html
+    This is template to render form for the user to register 
+    with their repective email-ids and create a password, then
+    they are good to go and login
+-->
+
+{% extends "layout.html" %} {% block content %}
+<div class="content-section" style="background-color: rgb(182, 238, 233)">
+  <form method="POST" action="">
+    <!-- The form.hidden_tag() template argument generates a hidden field that includes a token that is used to protect the form against CSRF attacks. All you need to do to have the form protected is include this hidden field and have the SECRET_KEY variable defined in the Flask configuration. If you take care of these two things, Flask-WTF does the rest for you. -->
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group">
+      <!-- legend of the form -->
+      <legend class="border-bottom mb-4">Join Today</legend>
+      <div class="form-group">
+        {{ form.username.label(class="form-control-label") }}
+
+        <!-- if username has errors print those -->
+        {% if form.username.errors %} {{ form.username(class="form-control
+        form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.username.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <!-- else validate username -->
+        {% else %} {{ form.username(class="form-control form-control-lg") }} {%
+        endif %}
+      </div>
+
+      <!-- Same validation for email -->
+      <div class="form-group">
+        {{ form.email.label(class="form-control-label") }} {% if
+        form.email.errors %} {{ form.email(class="form-control form-control-lg
+        is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.email.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.email(class="form-control form-control-lg") }} {%
+        endif %}
+      </div>
+      <!-- Same validation for password -->
+      <div class="form-group">
+        {{ form.password.label(class="form-control-label") }} {% if
+        form.password.errors %} {{ form.password(class="form-control
+        form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.password.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.password(class="form-control form-control-lg") }} {%
+        endif %}
+      </div>
+
+      <!-- Same validation for confirm password and matching the initial and final pass -->
+
+      <div class="form-group">
+        {{ form.confirm_password.label(class="form-control-label") }} {% if
+        form.confirm_password.errors %}
+        {{form.confirm_password(class="form-control form-control-lg is-invalid")
+        }}
+        <div class="invalid-feedback">
+          {% for error in form.confirm_password.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.confirm_password(class="form-control
+        form-control-lg") }} {% endif %}
+      </div>
+    </fieldset>
+
+    <!-- A submit button on validation -->
+    <div class="form-group">
+      {{ form.submit(class="btn btn-outline-info") }}
+    </div>
+  </form>
+</div>
+
+<!-- if already registered, a link to the login page -->
+<div class="border-top pt-3">
+  <small class="text-muted">
+    Already Have An Account?
+    <a class="ml-2" href="{{ url_for('users.login') }}">Sign In</a>
+  </small>
+</div>
+{% endblock content %}
