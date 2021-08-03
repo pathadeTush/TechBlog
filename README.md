@@ -18,8 +18,8 @@
   - Syntax: `python3 setup.py`
   - If this does not work for you try: `python3 -r requirements.txt`
 
-- **Run the program (First go to project directory and then run)**
-  - Syntax: `cd TechBlog` `python3 run.py`
+- **Run the program**
+  - Syntax: `python3 TechBlog/run.py`
 - **To stop the program Press** </br>
 
   - For windows and linux - Syntax: `ctrl + c`
