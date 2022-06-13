@@ -1,6 +1,6 @@
 # TechBlog
 
-### Project is hosted on live. [view demo](https://techblog21.herokuapp.com)
+### App is hosted on live. [view demo](https://techblog21.herokuapp.com)
 ### This repo has Web Based Project implemented in python using flask and other languages like html, css and bootstrap.
 
 ### Steps to run:
