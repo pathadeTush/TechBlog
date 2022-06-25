@@ -1,6 +1,9 @@
 # TechBlog
-
 ### App is hosted on live. [view demo](https://techblog21.herokuapp.com)
+
+![Home](./TechBlog/snaps/Screenshot%20from%202021-04-19%2016-12-51.png?raw=true "Home")
+![New Post](./TechBlog/snaps/Screenshot%20from%202021-04-19%2016-13-34.png?raw=true "New Post")
+
 ### This repo has Web Based Project implemented in python using flask and other languages like html, css and bootstrap.
 
 ### Steps to run:
@@ -21,10 +24,6 @@
 
 - **Run the program**
   - `python3 TechBlog/run.py`
-- **To stop the program Press** </br>
-
-  - For windows and linux - Syntax: `ctrl + c`
-  - For mac - `cmd + c`
-
+  
 - **Deactivate the virtual environment**
   - `deactivate`
